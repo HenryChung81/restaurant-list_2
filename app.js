@@ -36,20 +36,22 @@ app.get('/', (req, res) => {
     .catch((error) => console.log(error))
 })
 
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const restaurants = restaurantList.results.filter((restaurant) => {
-    return restaurant.name
-      .toLocaleLowerCase()
-      .includes(keyword.toLocaleLowerCase())
-  })
-  res.render('index', { restaurants: restaurants, keyword: keyword })
-})
+// app.get('/search', (req, res) => {
+//   const keyword = req.query.keyword
+//   const restaurants = restaurantList.results.filter((restaurant) => {
+//     return restaurant.name
+//       .toLocaleLowerCase()
+//       .includes(keyword.toLocaleLowerCase())
+//   })
+//   res.render('index', { restaurants: restaurants, keyword: keyword })
+// })
 
+// index
 app.get('/restaurant/new', (req, res) => {
   return res.render('new')
 })
 
+// create
 app.post('/restaurants', (req, res) => {
   if (req.body.image.length === 0) {
     req.body.image =
@@ -78,6 +80,15 @@ app.post('/restaurants', (req, res) => {
     description,
   })
     .then(() => res.redirect('/'))
+    .catch((error) => console.log(error))
+})
+
+// show
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('show', { restaurant }))
     .catch((error) => console.log(error))
 })
 
