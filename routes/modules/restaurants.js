@@ -12,28 +12,30 @@ router.post('/', (req, res) => {
     req.body.image =
       'https://www.teknozeka.com/wp-content/uploads/2020/03/wp-header-logo-33.png'
   }
-  const {
-    name,
-    name_en,
-    category,
-    image,
-    location,
-    phone,
-    google_map,
-    rating,
-    description,
-  } = req.body
-  return Restaurant.create({
-    name,
-    name_en,
-    category,
-    image,
-    location,
-    phone,
-    google_map,
-    rating,
-    description,
-  })
+
+  // const {
+  //   name,
+  //   name_en,
+  //   category,
+  //   image,
+  //   location,
+  //   phone,
+  //   google_map,
+  //   rating,
+  //   description,
+  // } = req.body
+  // return Restaurant.create({
+  //   name,
+  //   name_en,
+  //   category,
+  //   image,
+  //   location,
+  //   phone,
+  //   google_map,
+  //   rating,
+  //   description,
+  // })
+  return Restaurant.create(req.body)
     .then(() => res.redirect('/'))
     .catch((error) => console.log(error))
 })
@@ -58,28 +60,29 @@ router.get('/:id/edit', (req, res) => {
 
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  const {
-    name,
-    name_en,
-    category,
-    image,
-    location,
-    phone,
-    google_map,
-    rating,
-    description,
-  } = req.body
+  // const {
+  //   name,
+  //   name_en,
+  //   category,
+  //   image,
+  //   location,
+  //   phone,
+  //   google_map,
+  //   rating,
+  //   description,
+  // } = req.body
   return Restaurant.findById(id)
     .then((restaurant) => {
-      restaurant.name = name
-      restaurant.name_en = name_en
-      restaurant.category = category
-      restaurant.image = image
-      restaurant.location = location
-      restaurant.phone = phone
-      restaurant.google_map = google_map
-      restaurant.rating = rating
-      restaurant.description = description
+      // restaurant.name = name
+      // restaurant.name_en = name_en
+      // restaurant.category = category
+      // restaurant.image = image
+      // restaurant.location = location
+      // restaurant.phone = phone
+      // restaurant.google_map = google_map
+      // restaurant.rating = rating
+      // restaurant.description = description
+      restaurant = Object.assign(restaurant, req.body)
       return restaurant.save()
     })
     .then(() => res.redirect(`/restaurants/${id}`))
