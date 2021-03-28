@@ -21,16 +21,6 @@ app.use(methodOverride('_method'))
 
 app.use(routes)
 
-// app.get('/search', (req, res) => {
-//   const keyword = req.query.keyword
-//   const restaurants = restaurantList.results.filter((restaurant) => {
-//     return restaurant.name
-//       .toLocaleLowerCase()
-//       .includes(keyword.toLocaleLowerCase())
-//   })
-//   res.render('index', { restaurants: restaurants, keyword: keyword })
-// })
-
 app.listen(port, () => {
   console.log(`Express is listening on http://localhost:${port}`)
 })
